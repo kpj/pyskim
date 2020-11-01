@@ -1,5 +1,7 @@
 # pyskim
 
+[![PyPI](https://img.shields.io/pypi/v/pyskim.svg?style=flat)](https://pypi.python.org/pypi/pyskim)
+
 Quickly create summary statistics for a given dataframe.
 
 This package aspires to be as awesome as [skimr](https://github.com/ropensci/skimr).
