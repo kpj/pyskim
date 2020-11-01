@@ -1,6 +1,6 @@
 import pytest
 
-from pandas_skim import skim
+from pyskim import skim
 
 
 @pytest.fixture

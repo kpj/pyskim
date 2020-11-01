@@ -1,4 +1,4 @@
-# pandas_skim
+# pyskim
 
 Quickly summarize a given dataframe.
 
@@ -8,7 +8,7 @@ This package aspires to be as awesome as [skimr](https://github.com/ropensci/ski
 ## Installation
 
 ```bash
-$ pip install pandas_skim
+$ pip install pyskim
 ```
 
 ## Usage
@@ -16,7 +16,7 @@ $ pip install pandas_skim
 ### Commandline tool
 
 
-`pandas_skim` can be used from the commandline:
+`pyskim` can be used from the commandline:
 
 ```bash
 $ skim iris.csv
@@ -69,7 +69,7 @@ Options:
 Alternatively, it is possible to use it in code:
 
 ```python
->>> from pandas_skim import skim
+>>> from pyskim import skim
 >>> from seaborn import load_dataset
 
 >>> iris = load_dataset('iris')

@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "pandas_skim"
+name = "pyskim"
 version = "0.0.1"
 description = "Easily create summary statistics for a given dataframe."
 authors = ["kpj <kpjkpjkpjkpjkpjkpj@gmail.com>"]
@@ -18,4 +18,4 @@ ipython = "^7.19.0"
 pytest = "^6.1.2"
 
 [tool.poetry.scripts]
-skim = "pandas_skim:main"
+skim = "pyskim:main"
