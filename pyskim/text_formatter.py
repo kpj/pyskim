@@ -49,6 +49,9 @@ class TextFormatter():
         txt = ''
 
         for type_, columns in group_column_types(self.df).items():
+            if len(columns) == 0:
+                continue
+
             header = self._render_header(f'Variable type: {type_}')
             txt += f'{header}\n'
 
