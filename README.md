@@ -1,6 +1,6 @@
 # pyskim
 
-Quickly summarize a given dataframe.
+Quickly create summary statistics for a given dataframe.
 
 This package aspires to be as awesome as [skimr](https://github.com/ropensci/skimr).
 
