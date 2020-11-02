@@ -6,7 +6,7 @@ import IPython
 from .text_formatter import skim
 
 
-@click.command(help='Print dataframe summary.')
+@click.command(help='Quickly create summary statistics for a given dataframe.')
 @click.option('-d', '--delimiter', default=',', help='Delimiter of file.')
 @click.option(
     '-i', '--interactive', is_flag=True,
