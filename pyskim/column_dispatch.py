@@ -7,7 +7,6 @@ from .utils import text_histogram
 
 def describe_numeric(column):
     return {
-        'name': column.name,
         'na_count': column.isna().sum(),  # / column.shape[0]
         'mean': column.mean(),
         'sd': column.std(),
@@ -21,7 +20,6 @@ def describe_categorical(column):
     )
 
     return {
-        'name': column.name,
         'na_count': column.isna().sum(),  # / column.shape[0]
         'n_unique': column.nunique(),
         'top_counts': top_counts
@@ -41,6 +39,6 @@ def describe_column(column):
 
     if func is None:
         warnings.warn(f'Unknown dtype {dtype} for column {column.name}, skipping', RuntimeWarning)
-        return {}
+        return {'name': column.name}
 
-    return func(column)
+    return {'name': column.name, **func(column)}
