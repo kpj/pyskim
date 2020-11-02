@@ -18,4 +18,4 @@ ipython = "^7.19.0"
 pytest = "^6.1.2"
 
 [tool.poetry.scripts]
-skim = "pyskim:main"
+pyskim = "pyskim:main"
