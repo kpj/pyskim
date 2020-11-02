@@ -21,7 +21,7 @@ $ pip install pyskim
 `pyskim` can be used from the commandline:
 
 ```bash
-$ skim iris.csv
+$ pyskim iris.csv
 ── Data Summary ────────────────────────────────────────────────────────────────
 type                 value
 -----------------  -------
@@ -51,8 +51,8 @@ object         1
 Full overview:
 
 ```bash
-$ skim --help
-Usage: skim [OPTIONS] <file>
+$ pyskim --help
+Usage: pyskim [OPTIONS] <file>
 
   Print dataframe summary.
 
