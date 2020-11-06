@@ -43,8 +43,17 @@ if __name__ == '__main__':
     print(txt)
 
 
+def shorten_str(text: str, width: int = 30, suffix: str = '[...]') -> str:
+    """Custom string shortening (`textwrap.shorten` collapses whitespace)."""
+    if len(text) <= width:
+        return text
+    else:
+        return text[:width-len(suffix)] + suffix
+
+
 def top_counts(column: pd.Series, num: int = 3) -> str:
     """Render values of column with highest counts to string."""
     return ', '.join(
-        f'{k}: {v}' for k, v in column.value_counts().head(num).items()
+        f'{shorten_str(str(k))}: {v}'
+        for k, v in column.value_counts().head(num).items()
     )
