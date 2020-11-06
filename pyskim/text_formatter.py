@@ -65,7 +65,10 @@ class TextFormatter():
         return txt
 
 
-def skim(df: pd.DataFrame) -> None:
+def skim(df: pd.DataFrame, convert_dtypes=False) -> None:
+    if convert_dtypes:
+        df = df.convert_dtypes()
+
     fmtr = TextFormatter(df)
 
     print(fmtr.render_dataframe_overview(), end='')

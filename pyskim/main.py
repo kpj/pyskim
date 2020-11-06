@@ -12,14 +12,29 @@ from .text_formatter import skim
     '-i', '--interactive', is_flag=True,
     help='Open prompt with dataframe as `df` after displaying summary.'
 )
+@click.option(
+    '--no-dtype-conversion', is_flag=True, default=False,
+    help='Skip automatic dtype conversion.'
+)
 @click.argument(
     'fname', type=click.Path(exists=True, dir_okay=False),
     metavar='<file>'
 )
-def main(delimiter: str, interactive: bool, fname: str) -> None:
+def main(
+    delimiter: str, interactive: bool, no_dtype_conversion: bool,
+    fname: str
+) -> None:
+    # read dataframe
     df = pd.read_csv(fname, sep=delimiter)
+
+    if not no_dtype_conversion:
+        # do type conversion here for availability in interactive mode
+        df = df.convert_dtypes()
+
+    # skim dataframe
     skim(df)
 
+    # interactive mode
     if interactive:
         IPython.embed()
 
