@@ -1,44 +1,59 @@
-import warnings
+from typing import Any, Dict, Callable, Iterator, Tuple
 
-import numpy as np
+import pandas as pd
 
-from .utils import text_histogram
+from .utils import text_histogram, top_counts
 
 
-def describe_numeric(column):
+def describe_numeric(column: pd.Series) -> Dict[str, Any]:
     return {
-        'na_count': column.isna().sum(),  # / column.shape[0]
         'mean': column.mean(),
         'sd': column.std(),
         'hist': text_histogram(column)
     }
 
 
-def describe_categorical(column):
-    top_counts = ', '.join(
-        f'{k}: {v}' for k, v in column.value_counts().head(3).items()
-    )
-
+def describe_categorical(column: pd.Series) -> Dict[str, Any]:
     return {
-        'na_count': column.isna().sum(),  # / column.shape[0]
         'n_unique': column.nunique(),
-        'top_counts': top_counts
+        'top_counts': top_counts(column)
     }
 
 
-def describe_column(column):
-    # functools.singledispatch doesn't work when trying to detect a columns dtype
+def describe_boolean(column: pd.Series) -> Dict[str, Any]:
+    return {
+        'mean': column.mean(),
+        'top_counts': top_counts(column)
+    }
+
+
+def describe_column(
+    column: pd.Series,
+    func: Callable[[pd.Series], Dict[str, Any]]
+) -> Dict[str, Any]:
+    """Provide statistics useful for all dtypes and call descriptor."""
+    return {
+        'name': column.name,
+        'na_count': column.isna().sum(),  # / column.shape[0]
+        **func(column)
+    }
+
+
+def describe_columns(df: pd.DataFrame) -> Iterator[Tuple[str, pd.DataFrame]]:
     DISPATCH_MAP = {
-        np.dtype('float64'): describe_numeric,
-        np.dtype('int64'): describe_numeric,
-        np.dtype('object'): describe_categorical
+        'boolean': describe_boolean,
+        'number': describe_numeric,
+        'category': describe_categorical,
+        'string': describe_categorical,
+        'object': describe_categorical
     }
 
-    dtype = column.dtype
-    func = DISPATCH_MAP.get(dtype, None)
+    for type_, func in DISPATCH_MAP.items():
+        df_sub = df.select_dtypes(include=type_)
+        if df_sub.empty:
+            yield type_, None
+            continue
 
-    if func is None:
-        warnings.warn(f'Unknown dtype {dtype} for column {column.name}, skipping', RuntimeWarning)
-        return {'name': column.name}
-
-    return {'name': column.name, **func(column)}
+        df_summary = pd.DataFrame(
+            df_sub.apply(lambda x: describe_column(x, func)).to_list())
+        yield type_, df_summary

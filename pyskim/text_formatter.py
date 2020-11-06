@@ -1,9 +1,10 @@
+import warnings
+
 import pandas as pd
 
 import tabulate
 
-from .utils import group_column_types
-from .column_dispatch import describe_column
+from .column_dispatch import describe_columns
 
 
 class TextFormatter():
@@ -48,19 +49,24 @@ class TextFormatter():
     def render_variable_summaries(self) -> str:
         txt = ''
 
-        for type_, columns in group_column_types(self.df).items():
-            if len(columns) == 0:
+        # generate descriptions
+        described_columns = set()
+        for type_, df_summary in describe_columns(self.df):
+            if df_summary is None:
                 continue
+            described_columns.update(df_summary['name'])
 
             header = self._render_header(f'Variable type: {type_}')
             txt += f'{header}\n'
 
-            df_summary = pd.DataFrame(
-                self.df[columns].apply(describe_column).to_list()
-            )
-
             txt += self._render_dataframe_as_table(df_summary)
             txt += '\n\n'
+
+        # check if all columns were described
+        undescribed_columns = set(self.df.columns) - described_columns
+        if len(undescribed_columns) > 0:
+            warnings.warn(
+                f'The following columns had no matching descriptor: {undescribed_columns}')
 
         return txt
 

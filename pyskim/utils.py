@@ -1,22 +1,11 @@
-from typing import List, Union, Dict
+from typing import List, Union
 
 import numpy as np
 import pandas as pd
 
 
-def group_column_types(df: pd.DataFrame) -> Dict[str, List[str]]:
-    """Group columns into numeric and categorical ones."""
-    # TODO: improve this (e.g. datetime)
-    dtype_groups = {
-        'numeric': df.select_dtypes(include='number').columns,
-        'categorical': df.select_dtypes(exclude='number').columns
-    }
-
-    assert {v for vs in dtype_groups.values() for v in vs} == set(df.columns)
-    return dtype_groups
-
-
 def text_barchart(values: List[int], safe: bool = True) -> str:
+    """Render given values as bars in signle line."""
     # ['▁', '▂', '▃', '▄', '▅', '▆', '▇', '█']
     bar_characters = [chr(i) for i in range(9601, 9609)]
 
@@ -41,6 +30,7 @@ def text_histogram(
     values: np.ndarray,
     bins: Union[int, List[int]] = 10
 ) -> str:
+    """Render histogram of given `values` in single line."""
     hist, _ = np.histogram(values.dropna(), bins=bins)
     return text_barchart(hist)
 
@@ -51,3 +41,10 @@ if __name__ == '__main__':
         np.random.normal(50, 7, size=500)
     ])
     print(txt)
+
+
+def top_counts(column: pd.Series, num: int = 3) -> str:
+    """Render values of column with highest counts to string."""
+    return ', '.join(
+        f'{k}: {v}' for k, v in column.value_counts().head(num).items()
+    )
