@@ -1,14 +1,27 @@
+import datetime
+
+import numpy as np
+import pandas as pd
+
 import pytest
 from click.testing import CliRunner
 
 from pyskim import main, skim
 
 
-@pytest.fixture
-def df():
-    import numpy as np
-    import pandas as pd
+def random_date(
+    start: datetime.datetime = datetime.datetime(1970, 1, 1),
+    end: datetime.datetime = datetime.datetime(2038, 1, 1)
+) -> datetime.datetime:
+    """ Generate a random datetime between `start` and `end`.
+        https://stackoverflow.com/a/8170651/1474740
+    """
+    return start + datetime.timedelta(
+        seconds=np.random.randint(0, int((end - start).total_seconds())))
 
+
+@pytest.fixture
+def df() -> pd.DataFrame:
     N = 100
     df = pd.DataFrame({
         'boolean_column': np.random.choice([True, False], size=N),
@@ -28,7 +41,8 @@ def df():
             dtype='string'),
         'object_column': pd.Series(
             np.random.choice(['obj', 1, False], size=N),
-            dtype='object')
+            dtype='object'),
+        'datetime_column': [random_date() for _ in range(N)]
     })
 
     return df

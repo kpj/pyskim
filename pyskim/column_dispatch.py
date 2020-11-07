@@ -27,6 +27,15 @@ def describe_boolean(column: pd.Series) -> Dict[str, Any]:
     }
 
 
+def describe_datetime(column: pd.Series) -> Dict[str, Any]:
+    return {
+        'n_unique': column.nunique(),
+        'mean': column.mean(),
+        'min': column.min(),
+        'max': column.max()
+    }
+
+
 def describe_column(
     column: pd.Series,
     func: Callable[[pd.Series], Dict[str, Any]]
@@ -45,6 +54,7 @@ def describe_columns(df: pd.DataFrame) -> Iterator[Tuple[str, pd.DataFrame]]:
         'number': describe_numeric,
         'category': describe_categorical,
         'string': describe_categorical,
+        'datetime': describe_datetime,
         'object': describe_categorical
     }
 
