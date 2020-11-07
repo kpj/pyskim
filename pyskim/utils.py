@@ -15,8 +15,13 @@ def text_barchart(values: List[int], safe: bool = True) -> str:
     min_ = min(values)
     max_ = max(values)
     if min_ == max_:
-        min_ -= 1
-        max_ += 1
+        if min_ == 0:
+            # bars should be empty
+            max_ = 1
+        else:
+            # bars should be something non-empty
+            min_ -= 1
+            max_ += 1
     bins = np.linspace(min_, max_, len(bar_characters) + 1)
 
     bar_values = pd.cut(

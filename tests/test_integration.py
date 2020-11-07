@@ -42,7 +42,8 @@ def df() -> pd.DataFrame:
         'object_column': pd.Series(
             np.random.choice(['obj', 1, False], size=N),
             dtype='object'),
-        'datetime_column': [random_date() for _ in range(N)]
+        'datetime_column': [random_date() for _ in range(N)],
+        'na_column': pd.Series([pd.NA for _ in range(N)], dtype=pd.Int64Dtype())
     })
 
     return df
