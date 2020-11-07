@@ -52,8 +52,8 @@ def top_counts(column: pd.Series, num: int = 3) -> str:
 
 
 if __name__ == '__main__':
-    txt = text_histogram(np.r_[
+    txt = text_histogram(pd.Series(np.r_[
         np.random.normal(10, 2, size=500),
         np.random.normal(50, 7, size=500)
-    ])
+    ]))
     print(txt)
