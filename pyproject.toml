@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pyskim"
-version = "0.0.1"
+version = "0.0.2"
 description = "Quickly create summary statistics for a given dataframe."
 authors = ["kpj <kpjkpjkpjkpjkpjkpj@gmail.com>"]
 license = "MIT"
