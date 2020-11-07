@@ -35,14 +35,6 @@ def text_histogram(
     return text_barchart(hist)
 
 
-if __name__ == '__main__':
-    txt = text_histogram(np.r_[
-        np.random.normal(10, 2, size=500),
-        np.random.normal(50, 7, size=500)
-    ])
-    print(txt)
-
-
 def shorten_str(text: str, width: int = 30, suffix: str = '[...]') -> str:
     """Custom string shortening (`textwrap.shorten` collapses whitespace)."""
     if len(text) <= width:
@@ -57,3 +49,11 @@ def top_counts(column: pd.Series, num: int = 3) -> str:
         f'{shorten_str(str(k))}: {v}'
         for k, v in column.value_counts().head(num).items()
     )
+
+
+if __name__ == '__main__':
+    txt = text_histogram(np.r_[
+        np.random.normal(10, 2, size=500),
+        np.random.normal(50, 7, size=500)
+    ])
+    print(txt)
