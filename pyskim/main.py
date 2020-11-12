@@ -1,7 +1,6 @@
 import pandas as pd
 
 import click
-import IPython
 
 from .text_formatter import skim
 
@@ -36,6 +35,9 @@ def main(
 
     # interactive mode
     if interactive:
+        # reduce loading time when interactive mode is not enabled
+        import IPython
+
         IPython.embed()
 
 
