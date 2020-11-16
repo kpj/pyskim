@@ -1,5 +1,7 @@
 import warnings
 
+from typing import Any
+
 import pandas as pd
 
 import tabulate
@@ -21,9 +23,11 @@ class TextFormatter():
     def _render_divider(self) -> str:
         return self.sep_char * (self.width // 2) + '\n'
 
-    def _render_dataframe_as_table(self, df: pd.DataFrame) -> str:
+    def _render_dataframe_as_table(
+        self, df: pd.DataFrame, **kwargs: Any
+    ) -> str:
         # , floatfmt='.3f'
-        return tabulate.tabulate(df, headers='keys')
+        return tabulate.tabulate(df, headers='keys', **kwargs)
 
     def render_dataframe_overview(self) -> str:
         txt = ''
@@ -34,7 +38,7 @@ class TextFormatter():
         txt += self._render_dataframe_as_table(pd.DataFrame({
             'type': ['Number of rows', 'Number of columns'],
             'value': self.df.shape
-        }).set_index('type'))
+        }).set_index('type'), floatfmt='.0f')
         txt += '\n'
 
         txt += self._render_divider()
