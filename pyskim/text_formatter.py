@@ -63,7 +63,7 @@ class TextFormatter():
             header = self._render_header(f'Variable type: {type_}')
             txt += f'{header}\n'
 
-            txt += self._render_dataframe_as_table(df_summary)
+            txt += self._render_dataframe_as_table(df_summary, floatfmt='.3g')
             txt += '\n\n'
 
         # check if all columns were described
