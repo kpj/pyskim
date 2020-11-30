@@ -24,7 +24,7 @@ def main(
     fname: str
 ) -> None:
     # read dataframe
-    df = pd.read_csv(fname, sep=delimiter)
+    df = pd.read_csv(fname, sep=delimiter, low_memory=False)
 
     if not no_dtype_conversion:
         # do type conversion here for availability in interactive mode
