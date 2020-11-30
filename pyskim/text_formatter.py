@@ -10,7 +10,7 @@ from .column_dispatch import describe_columns
 
 
 class TextFormatter():
-    def __init__(self, df: pd.DataFrame, width: int = 80):
+    def __init__(self, df: pd.DataFrame, width: int = 100):
         self.df = df
         self.width = width
         self.sep_char = '─'
