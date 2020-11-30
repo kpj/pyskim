@@ -9,6 +9,8 @@ def describe_numeric(column: pd.Series) -> Dict[str, Any]:
     return {
         'mean': column.mean(),
         'sd': column.std(),
+        **{f'p{q*100:.0f}': column.quantile(q=q)
+           for q in [0, .25, .5, .75, 1]},
         'hist': text_histogram(column)
     }
 
