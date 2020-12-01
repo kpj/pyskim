@@ -45,7 +45,7 @@ string         1
 ── Variable type: string ───────────────────────────────────────────────────────────────────────────
     name               na_count    n_unique  top_counts
 --  ---------------  ----------  ----------  -----------------------------------------
- 0  species           0           3  versicolor: 50, setosa: 50, virginica: 50
+ 0          species           0           3  versicolor: 50, setosa: 50, virginica: 50
 ```
 
 Full overview:
@@ -98,5 +98,5 @@ Alternatively, it is possible to use it in code:
 # ── Variable type: string ───────────────────────────────────────────────────────────────────────────
 #     name               na_count    n_unique  top_counts
 # --  ---------------  ----------  ----------  -----------------------------------------
-#  0  species           0           3  versicolor: 50, setosa: 50, virginica: 50
+#  0          species           0           3  versicolor: 50, setosa: 50, virginica: 50
 ```
