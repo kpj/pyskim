@@ -36,8 +36,7 @@ def text_histogram(
     bins: Union[int, List[int]] = 10
 ) -> str:
     """Render histogram of given `values` in single line."""
-    values_clean = values.replace([np.inf, -np.inf], np.nan).dropna()
-    hist, _ = np.histogram(values_clean, bins=bins)
+    hist, _ = np.histogram(values.dropna(), bins=bins)
     return text_barchart(hist)
 
 

@@ -1,5 +1,7 @@
+import warnings
 from typing import Any, Dict, Callable, Iterator, Tuple
 
+import numpy as np
 import pandas as pd
 
 from .utils import text_histogram, top_counts
@@ -43,6 +45,14 @@ def describe_column(
     func: Callable[[pd.Series], Dict[str, Any]]
 ) -> Dict[str, Any]:
     """Provide statistics useful for all dtypes and call descriptor."""
+    # clean column
+    if np.inf in column.values or -np.inf in column.values:
+        msg = f'Column "{column.name}" contains +-Inf, replacing with NA.'
+        warnings.warn(RuntimeWarning(msg))
+
+        column = column.replace([np.inf, -np.inf], pd.NA)
+
+    # compute statistics
     return {
         'name': column.name,
         'na_count': column.isna().sum(),  # / column.shape[0]
