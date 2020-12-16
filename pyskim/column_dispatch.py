@@ -46,7 +46,7 @@ def describe_column(
 ) -> Dict[str, Any]:
     """Provide statistics useful for all dtypes and call descriptor."""
     # clean column
-    if np.inf in column.values.dropna() or -np.inf in column.values.dropna():
+    if np.inf in column.dropna().values or -np.inf in column.dropna().values:
         msg = f'Column "{column.name}" contains +-Inf, replacing with NA.'
         warnings.warn(RuntimeWarning(msg))
 
