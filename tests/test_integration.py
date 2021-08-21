@@ -53,7 +53,13 @@ def df() -> pd.DataFrame:
 
 
 def test_integration(capfd, df):
+    # without datatype conversion
     skim(df)
+    out, err = capfd.readouterr()
+    assert "Data Summary" in out
+
+    # with datatype conversion
+    skim(df.convert_dtypes())
     out, err = capfd.readouterr()
     assert "Data Summary" in out
 

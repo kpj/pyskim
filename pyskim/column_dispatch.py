@@ -63,7 +63,9 @@ def describe_columns(df: pd.DataFrame) -> Iterator[Tuple[str, pd.DataFrame]]:
     }
 
     for type_, func in DISPATCH_MAP.items():
-        df_sub = df.select_dtypes(include=type_)
+        df_sub = df.select_dtypes(
+            include=type_, exclude="boolean" if type_ == "number" else None
+        )
         if df_sub.empty:
             yield type_, None
             continue
