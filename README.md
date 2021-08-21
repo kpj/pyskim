@@ -1,6 +1,7 @@
 # pyskim
 
 [![PyPI](https://img.shields.io/pypi/v/pyskim.svg?style=flat)](https://pypi.python.org/pypi/pyskim)
+[![Tests](https://github.com/kpj/pyskim/actions/workflows/main.yaml/badge.svg)](https://github.com/kpj/pyskim/actions/workflows/main.yaml)
 
 Quickly create summary statistics for a given dataframe.
 
