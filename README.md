@@ -32,7 +32,7 @@ Number of columns        5
 Column type frequency:
            Count
 -------  -------
-float64        4
+Float64        4
 string         1
 
 ── Variable type: number ───────────────────────────────────────────────────────────────────────────
@@ -44,9 +44,9 @@ string         1
  3  petal_width            0    1.2   0.762   0.1    0.3   1.3     1.8     2.5  ▇▂▁▂▂▆▁▄▂▃
 
 ── Variable type: string ───────────────────────────────────────────────────────────────────────────
-    name               na_count    n_unique  top_counts
---  ---------------  ----------  ----------  -----------------------------------------
- 0          species           0           3  versicolor: 50, setosa: 50, virginica: 50
+    name       na_count    n_unique  top_counts
+--  -------  ----------  ----------  -----------------------------------------
+ 0  species           0           3  setosa: 50, versicolor: 50, virginica: 50
 ```
 
 Full overview:
