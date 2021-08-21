@@ -17,7 +17,10 @@ tabulate = "^0.8.9"
 ipython = "^7.26.0"
 
 [tool.poetry.dev-dependencies]
+bump2version = "^1.0.1"
+black = "^21.7b0"
 pytest = "^6.2.4"
+pytest-markdown = "^1.0.2"
 
 [tool.poetry.scripts]
 pyskim = "pyskim:main"
