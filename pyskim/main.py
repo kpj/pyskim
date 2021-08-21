@@ -5,23 +5,23 @@ import click
 from .text_formatter import skim
 
 
-@click.command(help='Quickly create summary statistics for a given dataframe.')
-@click.option('-d', '--delimiter', default=',', help='Delimiter of file.')
+@click.command(help="Quickly create summary statistics for a given dataframe.")
+@click.option("-d", "--delimiter", default=",", help="Delimiter of file.")
 @click.option(
-    '-i', '--interactive', is_flag=True,
-    help='Open prompt with dataframe as `df` after displaying summary.'
+    "-i",
+    "--interactive",
+    is_flag=True,
+    help="Open prompt with dataframe as `df` after displaying summary.",
 )
 @click.option(
-    '--no-dtype-conversion', is_flag=True, default=False,
-    help='Skip automatic dtype conversion.'
+    "--no-dtype-conversion",
+    is_flag=True,
+    default=False,
+    help="Skip automatic dtype conversion.",
 )
-@click.argument(
-    'fname', type=click.Path(exists=True, dir_okay=False),
-    metavar='<file>'
-)
+@click.argument("fname", type=click.Path(exists=True, dir_okay=False), metavar="<file>")
 def main(
-    delimiter: str, interactive: bool, no_dtype_conversion: bool,
-    fname: str
+    delimiter: str, interactive: bool, no_dtype_conversion: bool, fname: str
 ) -> None:
     # read dataframe
     df = pd.read_csv(fname, sep=delimiter, low_memory=False)
@@ -41,5 +41,5 @@ def main(
         IPython.embed()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
