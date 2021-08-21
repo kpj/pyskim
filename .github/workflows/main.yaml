@@ -1,6 +1,8 @@
 name: Tests
 
-on: [push]
+on:
+  push:
+  pull_request:
 
 jobs:
   test:
@@ -10,7 +12,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Set up Python
+      - name: Setup Python
         uses: actions/setup-python@v2
         with:
           python-version: '3.x'
@@ -22,9 +24,11 @@ jobs:
         run: |
           poetry install
           poetry build
-
       - name: Test package
         run: poetry run pytest -v
+
+      - name: Lint package
+        run: poetry run black --check --diff .
   deploy:
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
@@ -46,7 +50,6 @@ jobs:
         run: |
           poetry install
           poetry build
-
       - name: Publish package to PyPi
         uses: pypa/gh-action-pypi-publish@master
         with:
