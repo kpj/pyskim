@@ -3,6 +3,8 @@ import pandas as pd
 import click
 import IPython
 
+from typing import List
+
 from .text_formatter import skim
 
 
@@ -20,9 +22,18 @@ from .text_formatter import skim
     default=False,
     help="Skip automatic dtype conversion.",
 )
+@click.option(
+    "--groupby",
+    multiple=True,
+    help="Group dataframe by this/these variable(s).",
+)
 @click.argument("fname", type=click.Path(exists=True, dir_okay=False), metavar="<file>")
 def main(
-    delimiter: str, interactive: bool, no_dtype_conversion: bool, fname: str
+    delimiter: str,
+    interactive: bool,
+    no_dtype_conversion: bool,
+    groupby: List[str],
+    fname: str,
 ) -> None:
     # read dataframe
     df = pd.read_csv(fname, sep=delimiter, low_memory=False)
@@ -32,7 +43,8 @@ def main(
         df = df.convert_dtypes()
 
     # skim dataframe
-    skim(df)
+    obj = df if not groupby else df.groupby(list(groupby))
+    skim(obj)
 
     # interactive mode
     if interactive:

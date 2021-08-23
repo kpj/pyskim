@@ -52,14 +52,28 @@ def df() -> pd.DataFrame:
     return df
 
 
-def test_integration(capfd, df):
-    # without datatype conversion
+def test_raw_df(capfd, df):
     skim(df)
     out, err = capfd.readouterr()
     assert "Data Summary" in out
 
-    # with datatype conversion
+
+def test_converted_datatypes(capfd, df):
     skim(df.convert_dtypes())
+    out, err = capfd.readouterr()
+    assert "Data Summary" in out
+
+
+def test_grouped_df(capfd, df):
+    skim(df.groupby("category_column"))
+    out, err = capfd.readouterr()
+    assert "Data Summary" in out
+
+    skim(df.groupby(["category_column"]))
+    out, err = capfd.readouterr()
+    assert "Data Summary" in out
+
+    skim(df.groupby(["category_column", "string_column"]))
     out, err = capfd.readouterr()
     assert "Data Summary" in out
 

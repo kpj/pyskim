@@ -61,8 +61,8 @@ Options:
   -d, --delimiter TEXT   Delimiter of file.
   -i, --interactive      Open prompt with dataframe as `df` after displaying
                          summary.
-
   --no-dtype-conversion  Skip automatic dtype conversion.
+  --groupby TEXT         Group dataframe by this/these variable(s).
   --help                 Show this message and exit.
 ```
 
