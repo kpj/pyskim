@@ -14,7 +14,7 @@ scipy = "^1.10.0"
 numpy = "^1.21.2"
 click = "^8.0.1"
 tabulate = ">=0.8.9,<0.10.0"
-ipython = "^7.26.0"
+ipython = ">=7.26,<9.0"
 
 [tool.poetry.dev-dependencies]
 bump2version = "^1.0.1"
